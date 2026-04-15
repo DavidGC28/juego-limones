@@ -5,12 +5,13 @@
  
  
 </head>
-<body>
+<body onload="iniciarJuego()">
   <div class="contenedor">
     <h1>Atrapar Limones</h1>
     <link rel="stylesheet" href="limones.css">
     <p>Si del cielo te caen limones ..... </p>
-    
+    <h2>Autor limoncito</h2>
+    <canvas id="areaJuego" width="800" height="600"></canvas>
     <div class="panel">
       <p>Puntaje: <span id="txtPuntaje">0</span></p>
     </div>
@@ -21,6 +22,6 @@
       <button>Reiniciar</button>
     </div>
   </div>
-
+<script src="limones.js"></script>
 </body>
 </html>  
