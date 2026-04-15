@@ -1,16 +1,22 @@
  let canvas=document.getElementById("areaJuego")
  let ctx=canvas.getContext("2d")
  let personajeX = canvas.width / 2;
+ let limonX=0;
+ let limonY=0;
+
  
 
  function iniciarJuego(){
     dibujarSuelo()
-    dibujarPersonaje()  
+    dibujarPersonaje() 
+    dibujarLimones() 
  }
 
  const ALTURA_SUELO = 40;
  const ALTURA_PERSONAJE = 60; 
  const ANCHO_PERSONAJE = 60;
+ const ANCHO_LIMON = 20;
+ const ALTURA_LIMON = 20;
 
 
 function dibujarSuelo() {
@@ -69,9 +75,23 @@ function moverDerecha() {
     limpiarCanvas();
     dibujarSuelo();
     dibujarPersonaje();
+    dibujarLimones();
    
 }
 
 function limpiarCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
+
+function dibujarLimones() {
+    ctx.fillStyle = "#ecd929";
+    ctx.fillRect(limonX, limonY, ANCHO_LIMON, ALTURA_LIMON);
+}
+
+function bajarLimones() {
+    limonY = limonY+100;
+  
+    actualizarPantalla();
+}
+                 
+
