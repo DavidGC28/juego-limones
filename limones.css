@@ -1,7 +1,10 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #03380a;
-  color: white;
+  font-family: 'Fredoka', sans-serif;
+  font-size: medium;
+  background-image:url(Gemini_Generated_Image_ppl900ppl900ppl9.png);
+  background-size: cover; 
+  background-repeat: no-repeat;
+  color: rgb(4, 43, 2);
   text-align: center;
   margin: 0;
   padding: 200px;
@@ -13,7 +16,7 @@ body {
 }
 
 canvas {
-  background-color: #d4d4d42d;
+  background-color: #b2d4b0a9;
   border: 3px solid #78d62c;
   display: block;
   margin: 20px auto;
