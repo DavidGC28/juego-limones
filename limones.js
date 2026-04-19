@@ -16,6 +16,7 @@
  let intervaloLimones;
  let velocidadLimones = 100;
 
+
  
 
  function iniciarJuego(){
@@ -72,7 +73,7 @@ function dibujarSuelo() {
   const ancho = canvas.width;
 
  
-  ctx.fillStyle = "#5d4037"; // Marrón oscuro
+  ctx.fillStyle = "#5d4037"; 
   ctx.fillRect(0, ySuelo, ancho, altoSuelo);
 
 
@@ -99,31 +100,28 @@ function dibujarSuelo() {
 }
 
 function dibujarPersonaje() {
-    // Usamos las variables que ya tienes definidas
+  
     const x = personajeX; 
     const y = personajeY;
     const ancho = ANCHO_PERSONAJE;
     const alto = ALTURA_PERSONAJE;
 
-    // 1. CUERPO DEL BARRIL (Madera base)
+  
     ctx.fillStyle = "#8d6e63"; // Color café madera
     ctx.fillRect(x, y, ancho, alto);
 
-    // 2. LÍNEAS DE LAS TABLAS (Efecto madera)
-    // Dibujamos líneas verticales oscuras para separar las tablas
+ 
     ctx.fillStyle = "#5d4037"; 
-    ctx.fillRect(x + (ancho * 0.3), y, 2, alto); // Línea izquierda
-    ctx.fillRect(x + (ancho * 0.7), y, 2, alto); // Línea derecha
+    ctx.fillRect(x + (ancho * 0.3), y, 2, alto); 
+    ctx.fillRect(x + (ancho * 0.7), y, 2, alto); 
+  
+    ctx.fillStyle = "#455a64"; 
+    ctx.fillRect(x - 2, y + (alto * 0.2), ancho + 4, 6); 
+    ctx.fillRect(x - 2, y + (alto * 0.7), ancho + 4, 6); 
 
-    // 3. CINCHOS DE METAL (Aros)
-    // Estos son los que le dan la forma clásica de barril
-    ctx.fillStyle = "#455a64"; // Color gris metálico
-    ctx.fillRect(x - 2, y + (alto * 0.2), ancho + 4, 6); // Aro superior
-    ctx.fillRect(x - 2, y + (alto * 0.7), ancho + 4, 6); // Aro inferior
-
-    // 4. DETALLES DE BRILLO (Opcional, para el estilo Pixel Art)
+    
     ctx.fillStyle = "#d7ccc8"; 
-    ctx.fillRect(x + 4, y + 4, 4, 4); // Un pequeño punto de luz arriba
+    ctx.fillRect(x + 4, y + 4, 4, 4); 
 }
 
 function moverIzquierda() {
@@ -157,20 +155,20 @@ function dibujarLimones() {
     const x = limonX;
     const y = limonY;
     
-    // Desactivamos el suavizado para que los bordes se vean "cuadrados"
+    
     ctx.imageSmoothingEnabled = false;
 
-    // 1. CUERPO PRINCIPAL (Amarillo Brillante)
+  
     ctx.fillStyle = "#ecd929";
     // Dibujamos el centro del limón
     ctx.fillRect(x + 4, y + 4, 24, 16); 
-    // Dibujamos las puntas para darle forma ovalada
+   
     ctx.fillRect(x + 8, y, 16, 24); 
     ctx.fillRect(x, y + 8, 32, 8);
 
-    // 2. SOMBRA (Para dar volumen)
+   
     ctx.fillStyle = "#cbb115";
-    // Una franja en la parte inferior y derecha
+
     ctx.fillRect(x + 8, y + 20, 12, 4);
     ctx.fillRect(x + 24, y + 12, 4, 8);
 
@@ -184,12 +182,13 @@ function dibujarLimones() {
 
 function bajarLimones() {
  
-    limonY = limonY + 8; 
+    limonY = limonY + 10; 
     
     
     if (limonY > canvas.height - ALTURA_SUELO) {
-        detectarPiso();
         aparecerLimones();
+        detectarPiso();
+        
     }
     
     actualizarPantalla();
@@ -198,7 +197,7 @@ function bajarLimones() {
 
                  
 function detectarColision() {
-    // Usamos las constantes actualizadas para que coincidan con el dibujo
+   
     if (limonX + ANCHO_LIMON > personajeX &&
         limonX < personajeX + ANCHO_PERSONAJE && 
         limonY + ALTURA_LIMON > personajeY &&
@@ -210,6 +209,7 @@ function detectarColision() {
             componente.textContent = puntaje;
         }
         if (puntaje >= 10) {
+            clearInterval(intervaloLimones);
             alert("¡Felicidades. Eres un gran agricultor!");
             reiniciarJuego();
             return;
@@ -235,27 +235,30 @@ function aparecerLimones() {
 }  
 
 function detectarPiso() {
-    vida = vida - 1;
+    vida = vida - 1; // Restamos solo 1
     let componenteVidas = document.getElementById("txtVidas");
     
-    if (componenteVidas) {
-        if (vida === 2) componenteVidas.textContent = "♥♥";
-        else if (vida === 1) componenteVidas.textContent = "♥";
-        else if (vida <= 0) {
-            componenteVidas.textContent = "";
-            alert("¡GAME OVER! Tu cosecha terminó.");
-            reiniciarJuego(); 
+    if (vida > 0) {
+       
+        if (componenteVidas) {
+            if (vida === 2) componenteVidas.textContent = "♥♥";
+            if (vida === 1) componenteVidas.textContent = "♥";
         }
+    } else {
+       
+        if (componenteVidas) componenteVidas.textContent = "";
+         alert("¡GAME OVER! Tu cosecha terminó.");
+        clearInterval(juegoIntervalo); 
+       
     }
 }
-
 function reiniciarJuego() {
     vidas = 3;
     puntaje = 0;
-    // Actualizamos el HTML
+   
     document.getElementById("txtPuntaje").textContent = "0";
     document.getElementById("txtVidas").textContent = "♥♥♥";
-    // Reset posiciones
+  
     personajeX = canvas.width / 2;
     aparecerLimones(); 
 }
