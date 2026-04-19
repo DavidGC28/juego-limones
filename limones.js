@@ -13,10 +13,12 @@
  let limonY= canvas.height /2;
  let puntaje = 0;
  let vida = 3;
+ let velocidadLimones = 200;
 
  
 
  function iniciarJuego(){
+    setInterval(bajarLimones,200)
     dibujarSuelo()
     dibujarPersonaje() 
     dibujarLimones()
