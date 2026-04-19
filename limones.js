@@ -13,12 +13,14 @@
  let limonY= canvas.height /2;
  let puntaje = 0;
  let vida = 3;
- let velocidadLimones = 200;
+ let intervaloLimones;
+ let velocidadLimones = 100;
 
  
 
  function iniciarJuego(){
-    setInterval(bajarLimones,200)
+    clearInterval(intervaloLimones);
+     intervaloLimones = setInterval(bajarLimones, velocidadLimones);
     dibujarSuelo()
     dibujarPersonaje() 
     dibujarLimones()
@@ -182,7 +184,7 @@ function dibujarLimones() {
 
 function bajarLimones() {
  
-    limonY = limonY + 10; 
+    limonY = limonY + 8; 
     
     
     if (limonY > canvas.height - ALTURA_SUELO) {
@@ -201,17 +203,28 @@ function detectarColision() {
         limonX < personajeX + ANCHO_PERSONAJE && 
         limonY + ALTURA_LIMON > personajeY &&
         limonY < personajeY + ALTURA_PERSONAJE) 
-    {
+{
         puntaje = puntaje + 1;
         let componente = document.getElementById("txtPuntaje");
         if (componente) {
             componente.textContent = puntaje;
         }
-        aparecerLimones(); // Primero sumamos punto, luego reiniciamos posición
+        if (puntaje >= 10) {
+            alert("¡Felicidades. Eres un gran agricultor!");
+            reiniciarJuego();
+            return;
+        }
+
+        if (puntaje % 3 === 0) {    
+            velocidadLimones = velocidadLimones - 15;
+            if (velocidadLimones < 20) velocidadLimones = 20;
+            iniciarJuego();
+        } 
+
+        aparecerLimones(); 
+            
     }
-} 
-    
-        
+}
     
     
 
@@ -248,4 +261,4 @@ function reiniciarJuego() {
 }
 
 
-//palgit
+
