@@ -246,3 +246,6 @@ function reiniciarJuego() {
     personajeX = canvas.width / 2;
     aparecerLimones(); 
 }
+
+
+//palgit
