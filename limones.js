@@ -4,13 +4,15 @@
   const ALTURA_SUELO = 40;
  const ALTURA_PERSONAJE = 60; 
  const ANCHO_PERSONAJE = 60;
- const ANCHO_LIMON = 20;
- const ALTURA_LIMON = 20;
+ const ANCHO_LIMON = 32;
+ const ALTURA_LIMON = 24;
 
  let personajeX = canvas.width / 2;
  let personajeY = canvas.height - (ALTURA_SUELO + ALTURA_PERSONAJE);
  let limonX = canvas.width / 2;
  let limonY= canvas.height /2;
+ let puntaje = 0;
+ let vida = 3;
 
  
 
@@ -139,6 +141,7 @@ function moverDerecha() {
     dibujarPersonaje();
     dibujarLimones();
     dibujarArbusto();
+
    
 }
 
@@ -181,6 +184,7 @@ function bajarLimones() {
     
     
     if (limonY > canvas.height - ALTURA_SUELO) {
+        detectarPiso();
         aparecerLimones();
     }
     
@@ -190,15 +194,20 @@ function bajarLimones() {
 
                  
 function detectarColision() {
-    if ( limonX+ANCHO_LIMON>personajeX &&
-         limonX<personajeX+ANCHO_PERSONAJE && 
-         limonY+ALTURA_LIMON>personajeY &&
-         limonY<personajeY+ALTURA_PERSONAJE
-        )
-        {
-            aparecerLimones();
-        }}
-       
+    // Usamos las constantes actualizadas para que coincidan con el dibujo
+    if (limonX + ANCHO_LIMON > personajeX &&
+        limonX < personajeX + ANCHO_PERSONAJE && 
+        limonY + ALTURA_LIMON > personajeY &&
+        limonY < personajeY + ALTURA_PERSONAJE) 
+    {
+        puntaje = puntaje + 1;
+        let componente = document.getElementById("txtPuntaje");
+        if (componente) {
+            componente.textContent = puntaje;
+        }
+        aparecerLimones(); // Primero sumamos punto, luego reiniciamos posición
+    }
+} 
     
         
     
@@ -208,4 +217,30 @@ function aparecerLimones() {
     limonX = generarAleatorio(0, canvas.width - ANCHO_LIMON);
     limonY = 50;
     actualizarPantalla();
-}   
+}  
+
+function detectarPiso() {
+    vida = vida - 1;
+    let componenteVidas = document.getElementById("txtVidas");
+    
+    if (componenteVidas) {
+        if (vida === 2) componenteVidas.textContent = "♥♥";
+        else if (vida === 1) componenteVidas.textContent = "♥";
+        else if (vida <= 0) {
+            componenteVidas.textContent = "";
+            alert("¡GAME OVER! Tu cosecha terminó.");
+            reiniciarJuego(); 
+        }
+    }
+}
+
+function reiniciarJuego() {
+    vidas = 3;
+    puntaje = 0;
+    // Actualizamos el HTML
+    document.getElementById("txtPuntaje").textContent = "0";
+    document.getElementById("txtVidas").textContent = "♥♥♥";
+    // Reset posiciones
+    personajeX = canvas.width / 2;
+    aparecerLimones(); 
+}

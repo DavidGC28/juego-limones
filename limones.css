@@ -1,6 +1,6 @@
 body {
   font-family: 'Fredoka', sans-serif;
-  font-size: medium;
+  font-size: 20px;
   background-image:url(Gemini_Generated_Image_ppl900ppl900ppl9.png);
   background-size: cover; 
   background-repeat: no-repeat;
@@ -31,4 +31,47 @@ canvas {
   padding: 10px 16px;
   font-size: 16px;
   cursor: pointer;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+.panel {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.caja-madera {
+    background-color: #8d6e63; /* Café madera claro */
+    border: 4px solid #5d4037; /* Café madera oscuro */
+    padding: 10px 20px;
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+    box-shadow: 4px 4px 0px #3e2723; /* Sombra sólida tipo pixel art */
+    text-align: center;
+    min-width: 120px;
+}
+
+.caja-madera p {
+    margin: 0;
+    font-family: 'Luckiest Guy', cursive;
+    color: #3e2723;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+#txtPuntaje {
+    display: block;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 32px; /* Letra mucho más grande */
+    color: #ecd929; /* Amarillo limón */
+    text-shadow: 2px 2px 0px #1e4d2b; /* Borde oscuro para que resalte */
+    margin-top: 5px;
+}
+
+#txtVidas {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 28px;
+    letter-spacing: 3px;
+    /* Efecto de brillo para los corazones */
+    text-shadow: 0 0 10px rgba(255, 82, 82, 0.5);
 }
